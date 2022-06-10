@@ -12,6 +12,7 @@
   padding: 0;
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 #app {

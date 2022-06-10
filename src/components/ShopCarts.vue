@@ -1,16 +1,18 @@
 <template>
   <div class="carts">
-    <img src="https://fakeimg.pl/100x30/?text=xianchi"
-         alt=""
-         class="carts-add">
+    <img
+      src="https://fakeimg.pl/100x30/?text=xianchi"
+      alt=""
+      class="carts-add"
+    />
     <div class="count">去结算</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ShopCarts'
-}
+  name: "ShopCarts",
+};
 </script>
 
 <style lang="scss" scoped>

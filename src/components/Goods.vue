@@ -61,12 +61,13 @@ export default {
   .goods-grid {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3rem;
   }
   .goods {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
 
     .goods-info {
       height: 100%;

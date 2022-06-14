@@ -5,6 +5,7 @@ export default {
     state.nowDay = nowDay
     const countMiles = 24 * 60 * 60 * 1000
     let j = 0
+    let n = 1
     let i = nowDay
     while (j < nowDay) {
       const preDate = new Date(nowDate.getTime() + -j * countMiles)
@@ -16,8 +17,10 @@ export default {
       state.pickDates.push(preDateInfo)
       j++
     }
+    console.log(state.pickDates)
+
     while (i < 5) {
-      const preDate = new Date(nowDate.getTime() + i * countMiles)
+      const preDate = new Date(nowDate.getTime() + n * countMiles)
       const preDateInfo = {
         date: preDate.getDate() < 10 ? '0' + preDate.getDate() : preDate.getDate(),
         day: preDate.getDay(),
@@ -25,7 +28,9 @@ export default {
       }
       state.pickDates.push(preDateInfo)
       i++
+      n++
     }
+    console.log(state.pickDates)
     state.pickDates.sort((a, b) => a.day - b.day)
   },
   CHANGE_DAY(state, payload) {

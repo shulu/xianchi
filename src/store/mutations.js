@@ -9,28 +9,36 @@ export default {
     let i = nowDay
     while (j < nowDay) {
       const preDate = new Date(nowDate.getTime() + -j * countMiles)
+      const countDay = preDate.getDay()
+      const countDate = preDate.getDate()
+
       const preDateInfo = {
-        date: preDate.getDate() < 10 ? '0' + preDate.getDate() : preDate.getDate(),
-        day: preDate.getDay(),
-        dayCN: state.dayMapCn[preDate.getDay()]
+        date: countDate < 10 ? '0' + countDate : countDate,
+        dateInfo: preDate.getFullYear() + '-' + (preDate.getMonth() + 1) + '-' + countDate,
+        day: countDay,
+        dayCN: state.dayMapCn[countDay]
       }
+      const dateFull = preDate.getFullYear() + '-' + (preDate.getMonth() + 1) + '-' + countDate + ' ' + state.dayMapCn[countDay]
+      state.dateInfo[countDay] = dateFull
       state.pickDates.push(preDateInfo)
       j++
     }
-    console.log(state.pickDates)
 
     while (i < 5) {
       const preDate = new Date(nowDate.getTime() + n * countMiles)
+      const countDay = preDate.getDay()
+      const countDate = preDate.getDate()
       const preDateInfo = {
-        date: preDate.getDate() < 10 ? '0' + preDate.getDate() : preDate.getDate(),
-        day: preDate.getDay(),
-        dayCN: state.dayMapCn[preDate.getDay()]
+        date: countDate < 10 ? '0' + countDate : countDate,
+        day: countDay,
+        dayCN: state.dayMapCn[countDay]
       }
+      const dateFull = preDate.getFullYear() + '-' + (preDate.getMonth() + 1) + '-' + countDate + ' ' + state.dayMapCn[countDay]
+      state.dateInfo[countDay] = dateFull
       state.pickDates.push(preDateInfo)
       i++
       n++
     }
-    console.log(state.pickDates)
     state.pickDates.sort((a, b) => a.day - b.day)
   },
   CHANGE_DAY(state, payload) {
@@ -52,6 +60,23 @@ export default {
     }
   },
   CHANGE_CART(state, payload) {
-    state.carts.push(payload)
+    state.carts[state.nowDay].push(payload)
+    state.cartsCount = state.cartsCount + 1
+  },
+  CHANGE_CARTS(state) {
+    state.cartsDisplay = !state.cartsDisplay
+  },
+  CLEAR_CART_LIST(state) {
+    state.carts = [[], [], [], [], [], []]
+    state.cartsCount = 0
+  },
+  REMOVE_CART_MEAL(state, payload) {
+    let count = 0
+    state.carts = state.carts.map((cart) => {
+      cart = cart.filter((item) => item.id !== payload)
+      count = count + cart.length
+      return cart
+    })
+    state.cartsCount = count
   }
 }

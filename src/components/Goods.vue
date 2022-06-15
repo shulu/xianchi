@@ -14,7 +14,7 @@
           <div class="goods-name">{{good.name}}</div>
           <div class="goods-hot">辣度{{good.hot}}</div>
           <div class="add-cart"
-               @click="addToCart(1, good.name, good.hot, 'all', good.img)">+</div>
+               @click="addToCart(index, idx, good.name, good.hot, 'all', good.img)">+</div>
         </div>
       </div>
     </div>
@@ -28,20 +28,20 @@ export default {
   name: 'GoodsModal',
   methods: {
     ...mapActions(['ADD_CART']),
-    addToCart(id, name, hot, shop, pic) {
+    addToCart(index, idx, name, hot, shop, pic) {
       let info = {
-        id: id,
+        id: this.nowPeriod + index + idx,
         name: name,
         hot: hot,
         shop: shop,
-        img: pic
+        img: pic,
+        period: this.nowPeriod
       }
-      console.log(info)
       this.ADD_CART(info)
     }
   },
   computed: {
-    ...mapState(['goodsList', 'carts'])
+    ...mapState(['goodsList', 'carts', 'nowPeriod'])
   }
 }
 </script>

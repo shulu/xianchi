@@ -17,5 +17,14 @@ export default {
   },
   ADD_CART({ commit }, good) {
     commit('CHANGE_CART', good)
+  },
+  SHOW_CARTS({ commit }) {
+    commit('CHANGE_CARTS')
+  },
+  CLEAR_CARTS({ commit }) {
+    commit('CLEAR_CART_LIST')
+  },
+  REMOVE_MEAL({ commit }, idx) {
+    commit('REMOVE_CART_MEAL', idx)
   }
 }

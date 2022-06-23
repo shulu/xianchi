@@ -7,14 +7,14 @@
            v-for="good,idx in item"
            :key="idx">
         <div class="goods-pic">
-          <img src="@/assets/images/1.jpg"
+          <img :src="'https://img.youfantech.cn/' +good.goodImgUrl"
                alt="" />
         </div>
         <div class="goods-info">
-          <div class="goods-name">{{good.name}}</div>
-          <div class="goods-hot">辣度{{good.hot}}</div>
+          <div class="goods-name">{{good.goodName}}</div>
+          <div class="goods-hot">辣度{{good.hotDegree}}</div>
           <div class="add-cart"
-               @click="addToCart(index, idx, good.name, good.hot, 'all', good.img)">+</div>
+               @click="addToCart(index, idx, good.goodName, good.hotDegree, good.merchantStoreId, good.goodImgUrl)">+</div>
         </div>
       </div>
     </div>

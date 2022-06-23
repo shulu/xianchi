@@ -8,7 +8,7 @@
              :key="index"
              :class="{ active: this.nowDay == item.day }"
              @click="PICK_DAY(item.day, item.date)">
-          {{ item.date }} X {{ item.dayCN }}
+          {{ item.dayCN }}
         </div>
       </div>
     </div>
@@ -106,6 +106,7 @@ export default {
 <style lang="scss" scoped>
 .options-board {
   background-color: #fff;
+  width: 3.5rem;
 
   .calender,
   .meal,
@@ -118,14 +119,14 @@ export default {
     border-top: 1px dashed gray;
     .date-weekday {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
       gap: 0.3rem;
       .weekday {
         height: 3rem;
-        width: 8rem;
+        width: 3.5rem;
         line-height: 3rem;
         font-size: 1.5rem;
         border-radius: 5px;
@@ -153,7 +154,7 @@ export default {
   .meal {
     .meal-period {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 5px;
@@ -161,8 +162,8 @@ export default {
     }
 
     .period {
-      width: 6rem;
       height: 3rem;
+      width: 100%;
       line-height: 3rem;
       border-radius: 5px;
       box-shadow: 0.3rem 0.3rem 1rem rgba($color: #000000, $alpha: 0.5);
@@ -201,11 +202,10 @@ export default {
       flex-flow: wrap;
       justify-content: space-evenly;
       gap: 0.5rem;
-
+      margin-bottom: 5rem;
       .shop {
         .shop-img {
-          width: 8rem;
-          height: 8rem;
+          height: 4rem;
           border-radius: 1rem;
         }
 

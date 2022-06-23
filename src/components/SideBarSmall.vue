@@ -25,19 +25,19 @@
         </div>
       </div>
     </div>
-    <OptionsBoard />
+    <OptionsBoardSmall />
     <ScrollModal />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import OptionsBoard from '@/components/OptionsBoard.vue'
+import OptionsBoardSmall from '@/components/OptionsBoardSmall.vue'
 import ScrollModal from '@/components/ScrollModal.vue'
 
 export default {
-  name: 'SideBar',
-  components: { OptionsBoard, ScrollModal },
+  name: 'SideBarSmall',
+  components: { OptionsBoardSmall, ScrollModal },
   data() {
     return {
       avatarUrl: ''
@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 .sidebar {
   position: fixed;
-  width: 20rem;
+  width: 5rem;
   top: 0;
   left: 0;
   bottom: 0;
@@ -70,13 +70,16 @@ export default {
   align-items: center;
 
   box-shadow: 0 0.3rem 1rem rgba($color: #000000, $alpha: 1);
-  background-color: #fff;
+
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 
   .logo {
     display: none;
     img {
-      width: 20rem;
-      height: 10rem;
+      width: 3rem;
+      height: 3rem;
     }
   }
 
@@ -85,8 +88,8 @@ export default {
 
     .user-avatar {
       img {
-        width: 15rem;
-        height: 15rem;
+        width: 3.5rem;
+        height: 3.5rem;
         border-radius: 1rem;
       }
     }
@@ -94,6 +97,7 @@ export default {
     .user-name {
       font-size: 1.5rem;
       font-weight: 500;
+      display: none;
     }
 
     .position {
@@ -101,13 +105,13 @@ export default {
       svg {
         width: 3rem;
         height: 3rem;
-        float: left;
         fill: #f37626;
       }
 
       .position-name {
         font-size: 1.5rem;
         line-height: 3rem;
+        display: none;
       }
     }
   }
@@ -122,5 +126,9 @@ export default {
     border: 1px solid red;
     border-radius: 1rem;
   }
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 </style>

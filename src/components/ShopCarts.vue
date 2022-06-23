@@ -151,12 +151,11 @@ export default {
 <style lang="scss" scoped>
 .carts-list {
   position: fixed;
-  margin: auto;
   bottom: 1.7rem;
-  left: 20rem;
+  left: 0;
   right: 0;
   z-index: 100;
-  width: 40.6rem;
+  width: 30.6rem;
   min-height: 21rem;
   border-radius: 1rem;
   border: 0.3rem solid #f37626;
@@ -279,6 +278,7 @@ export default {
     font-weight: 800;
     line-height: 8rem;
   }
+
   .pos-blank {
     height: 5rem;
   }
@@ -288,14 +288,14 @@ export default {
   position: fixed;
   margin: auto;
   bottom: 2rem;
-  left: 20rem;
+  left: 0;
   right: 0;
   z-index: 101;
   border-radius: 1rem;
   box-shadow: 0.3rem 0.3rem 1rem rgba($color: #000000, $alpha: 0.3),
     -0.3rem -0.3rem 1rem rgba($color: #000000, $alpha: 0.3);
   height: 4rem;
-  width: 40rem;
+  width: 20rem;
   background-color: aliceblue;
 
   display: flex;

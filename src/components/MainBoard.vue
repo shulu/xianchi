@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import GoodsModal from '@/components/Goods.vue'
+import GoodsModal from '@/components/GoodsNew.vue'
 import ShopCarts from '@/components/ShopCarts.vue'
 
 export default {

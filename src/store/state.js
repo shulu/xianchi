@@ -1,11 +1,17 @@
 export default {
+  isLogin: false,
+  UserInfo: null,
+  addrList: null,
   nowDay: 1,
+  nowDate: null,
   nowPeriod: null,
-  nowShop: 'all',
+  intervalNo: 1,
+  nowShop: 1,
   pickDates: [],
   dateInfo: ['', '', '', '', '', ''],
   dayMapCn: ['ZERO', '周一', '周二', '周三', '周四', '周五'],
   periodMapCn: { mor: '早', noon: '午', eve: '晚' },
+  storeList: [],
   goodsList: [
     [
       { name: '湖南炒面+鸡蛋+奶', hot: '1', img: '1.jpg', money: 8 },
@@ -31,5 +37,6 @@ export default {
   ],
   cartsDisplay: false,
   carts: [[], [], [], [], [], []],
-  cartsCount: 0
+  cartsCount: 0,
+  isScroll: true
 }

@@ -1,4 +1,7 @@
 export default {
+  SET_ORDERINFO(state, payload) {
+    state.orderInfo = payload
+  },
   CHANGE_STORE(state, payload) {
     state.nowShop = payload ? payload : 1
   },
@@ -45,10 +48,13 @@ export default {
       const preDate = new Date(nowDate.getTime() + -j * countMiles)
       const countDay = preDate.getDay()
       const countDate = preDate.getDate()
-
+      const nowCountDate = countDate < 10 ? '0' + countDate : countDate
+      const countMonth = preDate.getMonth() + 1
+      const nowCountMonth = countMonth < 10 ? '0' + countMonth : countMonth
       const preDateInfo = {
         date: countDate < 10 ? '0' + countDate : countDate,
-        dateInfo: preDate.getFullYear() + '-' + (preDate.getMonth() + 1) + '-' + countDate,
+        dateInfo: preDate.getFullYear() + '-' + (preDate.getMonth() + 1) + '-' + nowCountDate,
+        nowdate: preDate.getFullYear() + '-' + nowCountMonth + '-' + nowCountDate,
         day: countDay,
         dayCN: state.dayMapCn[countDay]
       }
@@ -69,8 +75,13 @@ export default {
       const preDate = new Date(nowDate.getTime() + n * countMiles)
       const countDay = preDate.getDay()
       const countDate = preDate.getDate()
+      const nowCountDate = countDate < 10 ? '0' + countDate : countDate
+      const countMonth = preDate.getMonth() + 1
+      const nowCountMonth = countMonth < 10 ? '0' + countMonth : countMonth
       const preDateInfo = {
         date: countDate < 10 ? '0' + countDate : countDate,
+        dateInfo: preDate.getFullYear() + '-' + nowCountMonth + '-' + nowCountDate,
+        nowdate: preDate.getFullYear() + '-' + nowCountMonth + '-' + nowCountDate,
         day: countDay,
         dayCN: state.dayMapCn[countDay]
       }
@@ -92,12 +103,24 @@ export default {
   CHANGE_DAY(state, payload) {
     state.nowDay = payload.day
     state.nowDate = payload.date
+    console.log('now date', state.nowDate)
   },
   CHANGE_PERIOD(state, period) {
     const nowDate = new Date()
     let hours = nowDate.getHours() //获取当前小时数(0-23)
     if (period) {
       state.nowPeriod = period
+      switch (period) {
+        case 'mor':
+          state.intervalNo = 1
+          break
+        case 'noon':
+          state.intervalNo = 2
+          break
+        case 'eve':
+          state.intervalNo = 3
+          break
+      }
     } else {
       if (1 <= hours && hours < 8) {
         state.nowPeriod = 'mor'
@@ -110,7 +133,7 @@ export default {
         state.intervalNo = 3
       }
     }
-    console.log('intervalNo', state.intervalNo)
+    console.log('interval no', state.intervalNo)
   },
   CHANGE_CART(state, payload) {
     state.carts[state.nowDay].push(payload)

@@ -15,12 +15,11 @@ import MainBoard from '@/components/MainBoard.vue'
 export default {
   name: 'HomeView',
   created() {
-    this.CHECK_LOGIN(),
-      this.INIT_USERINFO(),
-      this.INIT_ADDRLIST(),
-      this.INIT_DATES(),
-      this.INIT_PERIOD(),
-      this.INIT_MEALS()
+    this.INIT_USERINFO()
+    this.INIT_ADDRLIST()
+    this.INIT_DATES()
+    this.INIT_PERIOD()
+    this.INIT_MEALS()
   },
   methods: {
     ...mapActions([
@@ -33,7 +32,7 @@ export default {
     ])
   },
   computed: {
-    ...mapState(['UserInfo', 'isScroll'])
+    ...mapState(['UserInfo', 'isScroll', 'isLogin'])
   },
   components: {
     SideBar,

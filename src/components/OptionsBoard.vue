@@ -7,7 +7,7 @@
              v-for="(item, index) in pickDates"
              :key="index"
              :class="{ active: this.nowDay == item.day }"
-             @click="PICK_DAY(item.day, item.date)">
+             @click="pickDay(item.day, item.nowdate)">
           {{ item.date }} X {{ item.dayCN }}
         </div>
       </div>
@@ -93,9 +93,18 @@ export default {
   data() {
     return {}
   },
-  created() {},
+  created() {
+    console.log(this.pickDates)
+  },
   methods: {
-    ...mapActions(['PICK_DAY', 'PICK_PERIOD', 'PICK_STORE'])
+    ...mapActions(['PICK_DAY', 'PICK_PERIOD', 'PICK_STORE']),
+    pickDay(day, date) {
+      let payload = {
+        day: day,
+        date: date
+      }
+      this.PICK_DAY(payload)
+    }
   },
   computed: {
     ...mapState(['nowDay', 'pickDates', 'nowPeriod', 'nowShop', 'storeList'])

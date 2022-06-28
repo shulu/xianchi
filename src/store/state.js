@@ -38,5 +38,6 @@ export default {
   cartsDisplay: false,
   carts: [[], [], [], [], [], []],
   cartsCount: 0,
-  isScroll: true
+  isScroll: true,
+  orderInfo: ''
 }

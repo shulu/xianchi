@@ -2,6 +2,45 @@
   <router-view />
 </template>
 
+<script>
+import { mapState, mapActions } from 'vuex'
+
+export default {
+  created() {
+    this.checkScreen()
+    window.addEventListener('resize', this.checkScreen)
+    if (this.isLogin) {
+      this.INIT_USERINFO()
+      this.INIT_ADDRLIST()
+      this.INIT_DATES()
+      this.INIT_PERIOD()
+      this.INIT_MEALS()
+    } else {
+      this.CHECK_LOGIN()
+    }
+  },
+  methods: {
+    ...mapActions([
+      'INIT_DATES',
+      'INIT_PERIOD',
+      'CHECK_LOGIN',
+      'INIT_USERINFO',
+      'INIT_ADDRLIST',
+      'INIT_MEALS'
+    ]),
+    checkScreen() {
+      const windowWidth = window.innerWidth
+      if (windowWidth <= 750) {
+        this.isScroll = false
+        return
+      }
+      this.isScroll = true
+    }
+  },
+  computed: { ...mapState(['isLogin', 'isScroll']) }
+}
+</script>
+
 <style>
 :root {
   font-size: 62.5%;

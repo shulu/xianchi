@@ -10,7 +10,10 @@ const api = {
   login: (params) => http.post(apis.ufan.AppLogin, params),
   getUser: (params) => http.post(apis.ufanMenu.GetUser, params),
   getPositionList: (params) => http.post(apis.ufanMenu.PositionList, params),
-  getGoods: (params) => http.post(apis.ufanMenu.GetMeal, params)
+  getGoods: (params) => http.post(apis.ufanMenu.GetMeal, params),
+  confirmOrder: (params) => http.post(apis.ufanMenu.ConfirmOrder, params),
+  payCartForFree: (params) => http.post(apis.ufanCore.PayCartFree, params),
+  reqCartInfo: (params) => http.post(apis.ufanCore.ReqCartInfo, params)
 }
 
 //导出

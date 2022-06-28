@@ -12,7 +12,7 @@
         <div class="goods-name">{{item.goodName}}</div>
         <div class="goods-hot">辣度{{item.hotDegree}}</div>
         <div class="add-cart"
-             @click="addToCart(index, idx, item.goodName, item.hotDegree, item.merchantStoreId, item.goodImgUrl)">+</div>
+             @click="addToCart(item.id, item.goodName,item.goodPrice, item.hotDegree, item.merchantStoreId,item.merchantStoreName, item.goodImgUrl)">+</div>
       </div>
     </div>
   </div>
@@ -28,20 +28,34 @@ export default {
   },
   methods: {
     ...mapActions(['ADD_CART']),
-    addToCart(index, idx, name, hot, shop, pic) {
+    addToCart(idx, name, price, hot, shop, shopName, pic) {
+      console.log(this.nowDate)
       let info = {
-        id: this.nowPeriod + index + idx,
+        date: this.nowDate,
+        id: idx,
         name: name,
+        price: price,
         hot: hot,
         shop: shop,
+        shopName: shopName,
         img: pic,
-        period: this.nowPeriod
+        weekDay: this.dayMapCn[this.nowDay],
+        period: this.intervalNo
       }
       this.ADD_CART(info)
     }
   },
   computed: {
-    ...mapState(['goodsList', 'carts', 'nowPeriod', 'isScroll'])
+    ...mapState([ 
+      'goodsList',
+      'carts',
+      'nowPeriod',
+      'isScroll',
+      'nowDay',
+      'dayMapCn',
+      'intervalNo',
+      'nowDate'
+    ])
   }
 }
 </script>

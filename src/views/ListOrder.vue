@@ -1,23 +1,10 @@
 <template>
+  <SideBar v-show="isScroll" />
+  <SideBarSmall v-show="!isScroll" />
   <div class="carts-list"
-       v-if="cartsDisplay">
+       :class="{cartslistbig:isScroll,cartslistsmall:!isScroll}">
     <div class="title">
-      <div class="shop-cart">购物车</div>
-      <div class="clear"
-           @click="CLEAR_CARTS()">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             width="512"
-             height="512"
-             viewBox="0 0 512 512">
-          <title>ionicons-v5-e</title>
-          <path d="M296,64H216a7.91,7.91,0,0,0-8,8V96h96V72A7.91,7.91,0,0,0,296,64Z"
-                style="fill:none" />
-          <path d="M432,96H336V72a40,40,0,0,0-40-40H216a40,40,0,0,0-40,40V96H80a16,16,0,0,0,0,32H97L116,432.92c1.42,26.85,22,47.08,48,47.08H348c26.13,0,46.3-19.78,48-47L415,128h17a16,16,0,0,0,0-32ZM192.57,416H192a16,16,0,0,1-16-15.43l-8-224a16,16,0,1,1,32-1.14l8,224A16,16,0,0,1,192.57,416ZM272,400a16,16,0,0,1-32,0V176a16,16,0,0,1,32,0ZM304,96H208V72a7.91,7.91,0,0,1,8-8h80a7.91,7.91,0,0,1,8,8Zm32,304.57A16,16,0,0,1,320,416h-.58A16,16,0,0,1,304,399.43l8-224a16,16,0,1,1,32,1.14Z" />
-        </svg>
-        <p>
-          清空
-        </p>
-      </div>
+      购物车
     </div>
     <div class="date-cart-list"
          v-if="cartsCount > 0">
@@ -110,59 +97,74 @@
                  @click="REMOVE_MEAL(meal.id)">-</div>
           </div>
         </div>
+        <div class="order-button"
+             @click="PAY_ORDER()">确认下单</div>
       </div>
     </div>
     <div v-else
          class="none-carts">暂未点餐</div>
     <div class="pos-blank"></div>
   </div>
-  <div class="carts">
-    <div class="carts-add"
-         @click="SHOW_CARTS()">
-      <img src="@/assets/images/active-carts.png"
-           alt=""
-           class="carts-add"
-           v-if="cartsCount > 0">
-      <img src="@/assets/images/deactive-carts.png"
-           alt=""
-           class="carts-add"
-           v-else>
-    </div>
-    <div class="carts-count"
-         v-if="cartsCount > 0">{{cartsCount}}</div>
-    <div class="count"
-         @click="ordering()">去结算</div>
-  </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import SideBar from '@/components/SideBar.vue'
+import SideBarSmall from '@/components/SideBarSmall.vue'
 
 export default {
-  name: 'ShopCarts',
-  methods: {
-    ...mapActions(['SHOW_CARTS', 'CLEAR_CARTS', 'REMOVE_MEAL', 'CONFIRM_ORDER']),
-    ordering() {
-      let carts = JSON.stringify(this.carts)
-      this.CONFIRM_ORDER()
-      this.$router.push({ name: 'listOrder', params: { carts: carts } })
+  name: 'ListOrder',
+  data() {
+    return {
+      cartsCount: 0,
+      carts: null
     }
   },
+  created() {
+    console.log(this.$route.params.carts)
+    if (this.$route.params.carts) {
+      let carts = JSON.parse(this.$route.params.carts)
+      let cartsCount = 0
+      carts.map((cart) => {
+        cartsCount = cartsCount + cart.length
+      })
+      if (cartsCount < 1) {
+        console.log('购物车为空', carts)
+        this.$router.push({ name: 'home' })
+      } else {
+        console.log('parse carts', carts)
+        this.cartsCount = cartsCount
+        this.carts = carts
+      }
+    } else {
+      console.log('购物车为空')
+      this.$router.push({ name: 'home' })
+    }
+  },
+  methods: {
+    ...mapActions(['PAY_ORDER'])
+  },
   computed: {
-    ...mapState(['carts', 'cartsDisplay', 'cartsCount', 'dateInfo', 'periodMapCn', 'orderInfo'])
+    ...mapState(['isScroll', 'periodMapCn', 'dateInfo', 'orderInfo'])
+  },
+  components: {
+    SideBar,
+    SideBarSmall
   }
 }
 </script>
 
+
 <style lang="scss" scoped>
 .carts-list {
   position: fixed;
-  margin: auto;
-  bottom: 1.7rem;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
+  height: 100%;
   z-index: 100;
-  width: 35.6rem;
+  width: 32.6rem;
   min-height: 21rem;
   border-radius: 1rem;
   border: 0.3rem solid #f37626;
@@ -170,39 +172,14 @@ export default {
 
   .title {
     height: 4rem;
-    // border-bottom: 1px solid lightgray;
-    .shop-cart,
-    .clear {
-      line-height: 4rem;
-    }
-
-    .shop-cart {
-      float: left;
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-left: 1rem;
-    }
-
-    .clear {
-      float: right;
-      margin-right: 1rem;
-
-      svg {
-        width: 1.5rem;
-        height: 1.5rem;
-        fill: gray;
-        margin: 1.2rem 0.5rem;
-        float: left;
-      }
-
-      p {
-        display: inline;
-        float: right;
-      }
-    }
+    line-height: 4rem;
+    font-size: 2rem;
+    font-weight: 600;
+    border-bottom: 0.3rem solid #f37626;
   }
 
   .date-cart-list {
+    margin-top: 2rem;
     .date-list {
       .order-date {
         margin-left: 1rem;
@@ -289,62 +266,24 @@ export default {
   .pos-blank {
     height: 5rem;
   }
+
+  .order-button {
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: #f37626;
+    margin: 1rem 3rem;
+    border-radius: 1rem;
+  }
 }
 
-.carts {
-  position: fixed;
-  margin: auto;
-  bottom: 2rem;
-  left: 0;
-  right: 0;
-  z-index: 101;
-  border-radius: 1rem;
-  box-shadow: 0.3rem 0.3rem 1rem rgba($color: #000000, $alpha: 0.3),
-    -0.3rem -0.3rem 1rem rgba($color: #000000, $alpha: 0.3);
-  height: 4rem;
-  width: 20rem;
-  background-color: aliceblue;
+.cartslistsmall {
+  margin-left: 6rem;
+}
 
-  display: flex;
-  justify-content: space-between;
-
-  .carts-add {
-    flex: 2;
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-
-    p {
-      line-height: 4rem;
-      opacity: 0.3;
-      font-size: 2rem;
-    }
-
-    img {
-      float: left;
-      width: 5rem;
-    }
-  }
-
-  .carts-count {
-    position: absolute;
-    height: 1.5rem;
-    line-height: 1.5rem;
-    left: 3.6rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    background-color: #e21e1e;
-    color: #fff;
-    border-radius: 0.5rem;
-  }
-
-  .count {
-    flex: 1;
-    height: 100%;
-    line-height: 4rem;
-    background-color: #f37626;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    color: #fff;
-  }
+.cartslistbig {
+  margin-left: 22rem;
 }
 </style>

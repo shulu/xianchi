@@ -25,6 +25,8 @@ service.interceptors.request.use(
       'User-Agent':
         'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
       'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+      Origin: 'http://hefan.ubox.cn',
       Cookie: cookie
     }
     //如有需要：注意使用token的时候需要引入cookie方法或者用本地localStorage等方法，推荐js-cookie
@@ -47,7 +49,7 @@ service.interceptors.response.use(
     // 否则的话抛出错误
     console.log('response: ', response)
     if (response.status === 200) {
-      if (response.data.code === '501') {
+      if (response.data.code == '501') {
         window.alert(response.data.message)
         localStorage.removeItem('auth_code')
         localStorage.removeItem('auth_cookie')
